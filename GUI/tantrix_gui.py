@@ -85,8 +85,6 @@ class TantrixGUI:
         self.error_label = tk.Label(self.root, text="Errors: 0")
         self.error_label.pack()
 
-        self.draw()
-
         # Create buttons
         button_frame = tk.Frame(self.root)  # Create a frame to hold the buttons
         button_frame.pack(pady=10)  # Pack the frame itself
@@ -112,7 +110,7 @@ class TantrixGUI:
         self.puzzle_size_entry.pack(side="left")
 
         # Boolean variable for checkbox
-        self.use_three_colors = tk.BooleanVar()
+        self.use_three_colors = tk.BooleanVar(value=True)
 
         # Checkbox for 3 colors
         color_checkbox = tk.Checkbutton(entry_frame, text="3 Colors", variable=self.use_three_colors)
@@ -142,6 +140,8 @@ class TantrixGUI:
         self.canvas.bind("<ButtonRelease-1>", self.click)
         self.canvas.bind("<B1-Motion>", self.drag)
         self.canvas.bind("<ButtonRelease-3>", self.right_click)
+
+        self.draw()  # draw everything after initialization is finished
 
         self.root.mainloop()
 
@@ -433,6 +433,15 @@ class TantrixGUI:
         else:
             self.error_label.config(text=f"Errors: {mismatches}", fg="red")
 
+    def update_tile_entry(self):
+        """
+        Update the size of the entry field after a change
+        """
+        # Clear the current value in the entry field
+        self.puzzle_size_entry.delete(0, tk.END)
+        # Insert the new value
+        self.puzzle_size_entry.insert(0, str(self._game.get_puzzle_size()))
+
     def print_current_board(self):
         """
         Function to print the current state of the board to the console
@@ -452,7 +461,7 @@ class TantrixGUI:
         instructions_window = tk.Toplevel(self.root)
         instructions_window.title("Game Instructions")
         # Set the size of the pop-up window
-        instructions_window.geometry("300x410")
+        instructions_window.geometry("300x420")
         # Add a label with instructions text
         instruction_label = tk.Label(instructions_window,
                                      text="How to Play:\n\n1. Match colors on adjacent tiles.\n"
@@ -467,7 +476,7 @@ class TantrixGUI:
                                           "all tiles into pyramid shape. \n"
                                           "7. Use \"New Puzzle\" button to get \n"
                                           "a new puzzle with different tiles \n "
-                                          "(change tile number). \n"
+                                          "(change tile number, maximum 56). \n"
                                           "8. Check \"3 Colors\" box to only use \n"
                                           "tiles with 3 different colors \n"
                                           "(when Tiles <= 14). \n"
@@ -531,3 +540,4 @@ class TantrixGUI:
             self.draw_tile(self.mouse_position, self.current_tile_code)
 
         self.update_errors()
+        self.update_tile_entry()

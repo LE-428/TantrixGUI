@@ -46,8 +46,8 @@ CODES = ['BBRYRY', 'BYRBRY', 'RBYYRB', 'BBYRRY', 'RBRYYB', 'YBYRRB', 'BBYRYR',
          'BBGYGY', 'BYGBGY', 'GBYYGB', 'BBYGGY', 'GBGYYB', 'YBYGGB', 'BBYGYG',
          'BBGGYY', 'YBGYGB', 'BBGYYG', 'GBYGYB', 'YYBGGB', 'BBYYGG', 'YBGGYB']
 
-# Minimal size of grid to allow placement of 10 tiles
-MINIMAL_GRID_SIZE = 4
+# Minimal size of grid
+# MINIMAL_GRID_SIZE = 4
 
 
 class Tantrix:
@@ -103,8 +103,6 @@ class Tantrix:
             # print(f"{transition_edges=}")
             for transition_index in range(self._puzzle_size - 1):  # = range(len(transition_edges))
                 # print(f"{transition_index=}")
-                # curr_grid_index = [curr_grid_index[idx] +
-                #                    DIRECTIONS[transition_edges[transition_index]][idx] for idx in range(3)]
                 curr_grid_index = self.get_neighbor(curr_grid_index, transition_edges[transition_index])
                 if sum(curr_grid_index) > self._tiling_size:  # if next to be placed tile is outside triangular grid
                     break_occurred = True
@@ -139,8 +137,6 @@ class Tantrix:
                 self.place_tile(grid_index, puzzle[_counter])
                 _counter += 1
                 while _counter < self._puzzle_size:
-                    # grid_index = [grid_index[idx] +
-                    #               DIRECTIONS[4][idx] for idx in range(3)]
                     grid_index = self.get_neighbor(grid_index, direction=4)
                     self.place_tile(tuple(grid_index), puzzle[_counter])
                     _counter += 1
@@ -283,8 +279,6 @@ class Tantrix:
             self.place_tile(grid_index, codes[_counter])
             _counter += 1
             while _counter < self._puzzle_size:
-                # grid_index = [grid_index[idx] +
-                #               DIRECTIONS[4][idx] for idx in range(3)]
                 grid_index = self.get_neighbor(grid_index, direction=4)
                 self.place_tile(tuple(grid_index), codes[_counter])
                 _counter += 1
@@ -295,6 +289,10 @@ class Tantrix:
         old_num = self._puzzle_size
         if num_tiles is None:
             num_tiles = self._puzzle_size
+        if num_tiles > 56:
+            num_tiles = 56  # cap the maximum amount of tiles (there are only 56 different Tantrix tiles)
+        elif num_tiles < 0:
+            num_tiles = 7
         self.update_puzzle_size(new_size=num_tiles)
         self.update_pyramid_size()
         self.update_tiling_size()
@@ -319,7 +317,6 @@ class Tantrix:
         # moving_direction = DIRECTIONS[moving_edge]
         shifted_tiles = []
         for grid_index in self._tile_value.keys():
-            # shifted_grid_index = [grid_index[idx] + moving_direction[idx] for idx in range(3)]
             shifted_grid_index = self.get_neighbor(grid_index, moving_edge)
             if sum(shifted_grid_index) != self._tiling_size or \
                     any([True for coord in shifted_grid_index if coord < 0]):  # if shift would hurt board borders

@@ -5,7 +5,7 @@
 
 This project is an implementation of a solo Tantrix game with a graphical user interface (GUI). It is based on the work by [Henk Westerink](https://github.com/hwesterink), who provided the basic GUI [implementation](https://github.com/hwesterink/PythonCourseraRice). The objective of the game is to place the Tantrix tiles in such a way that the edges of adjacent hexagonal tiles match in color. This project provides an easy way to start and play Tantrix games.
 
-It works together with [this](https://github.com/LE-428/Tantrix) project, which is an implementation of a solver for Tantrix puzzles based on an algorithm called simulated annealing. You can use the 'Print Puzzle' button in the GUI, which will return a representation of the current board that can be used to start the solving algorithm.
+It works together with [this](https://github.com/LE-428/Tantrix) project, which is an implementation of a solver for Tantrix puzzles based on an algorithm called simulated annealing. You can use the 'Print Puzzle' button in the GUI, which will return a representation (see below) of the current board to the console that can be used to start the solving algorithm.
 
 ## Layout
 
@@ -57,7 +57,11 @@ python start_game.py -h
 - ['121323', '112332', '141343', '113232', '114422', '313414', '112233', '131434', '131443', '112323'] (tile codes: (1: blue, 2: yellow, 3: red, 4: green), visiting the hexagon edges counter-clockwise)
 - [1, 3, 0, 0, 5, 5, 3, 2, 3, 1] (tile orientation: orientation 0 is as seen in the image with the 56 tiles above, rotating a tile by 60 degrees clockwise increases the orientation by 1)
 
-Combined representation: [[fields], [tiles], [tile codes], [orientations]] or [[tiles], [tile codes], [orientations]] if fields = [0, 1, 2, 3, 4, 5, 6] ('flower puzzle').
+Combined representation:
+
+- [[fields], [tiles], [tile codes], [orientations]], 
+- [[fields], [tiles], [orientations]] or 
+- [[tiles], [tile codes], [orientations]] if fields = [0, 1, 2, 3, 4, 5, 6] ('flower puzzle').
 
 ![Pyramid with blue line](images/blue_pyramid.png)
 
