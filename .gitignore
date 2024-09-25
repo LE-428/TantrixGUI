@@ -1,0 +1,7 @@
+.venv/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+poc_tantrix_gui.py
+images/hexagonal_grid.png
