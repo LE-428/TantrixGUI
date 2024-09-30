@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project is an implementation of a solo Tantrix game with a graphical user interface (GUI). It is based on the work by [Henk Westerink](https://github.com/hwesterink), who provided the basic GUI [implementation](https://github.com/hwesterink/PythonCourseraRice). The objective of the game is to place the Tantrix tiles in such a way that the edges of adjacent hexagonal tiles match in color. This project provides an easy way to start and play Tantrix games.
+This project is an implementation of a solo [Tantrix](https://tantrix.com) game with a graphical user interface (GUI). It is based on the work by [Henk Westerink](https://github.com/hwesterink), who provided the basic GUI [implementation](https://github.com/hwesterink/PythonCourseraRice). The objective of the game is to place the Tantrix tiles in such a way that the edges of adjacent hexagonal tiles match in color. This project provides an easy way to start and play Tantrix games.
 
 It works together with [this](https://github.com/LE-428/Tantrix) project, which is an implementation of a solver for Tantrix puzzles based on an algorithm called simulated annealing. You can use the 'Print Puzzle' button in the GUI, which will return a representation (see below) of the current board to the console that can be used to start the solving algorithm.
 

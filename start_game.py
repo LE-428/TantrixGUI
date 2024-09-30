@@ -44,14 +44,16 @@ def transform_tantrix_puzzle_to_gui_format(puzzle):
         return get_gui_directions_from_path_edges(path_edg)
 
     path_edges = None
-    if len(puzzle) == 1:
+    if len(puzzle) == 1:  # [[tiles]]
         # puzzle.insert(0, [*range(len(puzzle[0]))])  # add fields if only [[tiles]] as input
         out_puzzle = [gui_codes[tile] for tile in puzzle[0]]
         path_edges = get_path_for_ascending_field_enumeration(len(puzzle[0]))
     else:
-        if len(puzzle) == 2:
+        if len(puzzle) == 2:  # [[fields], [tiles]]
             out_tiles = [gui_codes[tile] for tile in puzzle[1]]
         else:
+            if type(puzzle[1][0]) == str:
+                puzzle.insert(0, [*range(len(puzzle[0]))])
             out_tiles = [rotate_gui_format(gui_codes[tile],
                                            rotation=puzzle[-1][idx]) for idx, tile in enumerate(puzzle[1])]
         fields = puzzle[0]
@@ -211,6 +213,7 @@ def get_valid_gui_start_point(tiling_size, puzzle_exp):
                 valid_points.append((x, y, z))
     # If no valid points found, return None
     if not valid_points:
+        print("Couldn't initialize puzzle with the given fields, arranging in random form")
         return None
 
     # Now find the "most balanced" point (closest to equal distribution of x, y, z)
@@ -341,7 +344,7 @@ def main():
     # print(f"{gui_puzzle=} \n {transition_edges=}")
 
     puzzle_expansion = calculate_puzzle_expansion(transition_edges)
-    print(f"{puzzle_expansion=}")
+    # print(f"{puzzle_expansion=}")
 
     board_size = get_board_size(len(gui_puzzle))
     print(f"{board_size=}")
